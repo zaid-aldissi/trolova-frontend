@@ -1,6 +1,6 @@
 # Project State — Trolova Frontend
 
-Last updated: Standalone bootstrap VERIFIED and CLOSED
+Last updated: Batch 10 — UI/UX Foundation v1 recorded. Batch 7 (Input) CLOSED.
 
 ---
 
@@ -25,6 +25,7 @@ Last updated: Standalone bootstrap VERIFIED and CLOSED
 | Frontend Foundation Batch 6 (Button production primitive) | ✅ Closed |
 | Standalone repo bootstrap (migrate Batches 1–6)         | ✅ Closed |
 | Standalone bootstrap verification                        | ✅ VERIFIED — CLOSED |
+| Frontend Foundation Batch 7 (Input production primitive) | ✅ VERIFIED — CLOSED |
 
 ### Bootstrap Verification Record
 
@@ -42,7 +43,7 @@ Last updated: Standalone bootstrap VERIFIED and CLOSED
 | Primitive | Status                     |
 |-----------|---------------------------|
 | Button    | ✅ First production primitive — implemented |
-| Input     | 🔒 Locked as second production primitive — **NOT yet implemented** |
+| Input     | ✅ Second production primitive — implemented |
 | FormField | ⛔ Not yet approved for implementation |
 
 ---
@@ -54,7 +55,6 @@ Last updated: Standalone bootstrap VERIFIED and CLOSED
 - No app shell
 - No production navigation
 - No token expansion (beyond approved 43 tokens)
-- No Input implementation
 - No FormField implementation
 - No backend integration
 
@@ -69,7 +69,6 @@ The old FoundationPage is a legacy dev-only validation artifact and was **not mi
 
 ## Next Authorized Work
 
-**Input** — second production primitive.
-Awaiting explicit Product Owner authorization to begin.
+No next batch is currently authorized.
 
-Do not start Batch 7 without that authorization.
+Awaiting explicit Product Owner authorization before beginning any new batch.
