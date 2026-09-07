@@ -1,0 +1,63 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 40px;
+  padding-block: 0;
+  padding-inline: var(--trolova-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--trolova-radius-sm);
+  font-family: var(--trolova-font-family-primary);
+  font-size: var(--trolova-font-size-md);
+  font-weight: var(--trolova-font-weight-medium);
+  line-height: var(--trolova-line-height-tight);
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: var(--trolova-focus-ring-width) solid var(--trolova-color-focus-ring);
+  outline-offset: var(--trolova-focus-ring-offset);
+}
+
+.button:disabled {
+  background-color: var(--trolova-color-surface-disabled);
+  border-color: var(--trolova-color-border-disabled);
+  color: var(--trolova-color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* primary variant */
+
+.primary {
+  background-color: var(--trolova-color-brand-primary);
+  border-color: var(--trolova-color-brand-primary);
+  color: var(--trolova-color-action-primary-text);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--trolova-color-brand-primary-hover);
+  border-color: var(--trolova-color-brand-primary-hover);
+}
+
+.primary:active:not(:disabled) {
+  background-color: var(--trolova-color-brand-primary-active);
+  border-color: var(--trolova-color-brand-primary-active);
+}
+
+/* secondary variant */
+
+.secondary {
+  background-color: var(--trolova-color-background-page);
+  border-color: var(--trolova-color-border-default);
+  color: var(--trolova-color-text-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--trolova-color-surface-hover);
+  border-color: var(--trolova-color-border-hover);
+}
+
+.secondary:active:not(:disabled) {
+  background-color: var(--trolova-color-surface-active);
+  border-color: var(--trolova-color-border-active);
+}

@@ -1,0 +1,117 @@
+:root {
+  /* ── Color – Brand ────────────────────────────────────────────── */
+  --trolova-color-brand-primary:        #12235B;
+  --trolova-color-brand-primary-hover:  #1B327D;
+  --trolova-color-brand-primary-active: #12235B;
+  --trolova-color-action-primary-text:  #FFFFFF;
+
+  /* ── Color – Background / Surface ────────────────────────────── */
+  --trolova-color-background-page:   #FFFFFF;
+  --trolova-color-surface-default:   #F8FAFC;
+  --trolova-color-surface-hover:     #F8FAFC;
+  --trolova-color-surface-active:    #F8FAFC;
+  --trolova-color-surface-disabled:  #F8FAFC;
+
+  /* ── Color – Text ─────────────────────────────────────────────── */
+  --trolova-color-text-primary:    #111827;
+  --trolova-color-text-secondary:  #6B7280;
+  --trolova-color-text-disabled:   #6B7280;
+  --trolova-color-text-on-primary: #FFFFFF;
+
+  /* ── Color – Border ───────────────────────────────────────────── */
+  --trolova-color-border-default:  #E5E7EB;
+  --trolova-color-border-hover:    #1B327D;
+  --trolova-color-border-active:   #12235B;
+  --trolova-color-border-disabled: #E5E7EB;
+
+  /* ── Color – Focus Ring ───────────────────────────────────────── */
+  --trolova-color-focus-ring:    #1B327D;
+  --trolova-focus-ring-width:    2px;
+  --trolova-focus-ring-offset:   2px;
+
+  /* ── Color – Status ───────────────────────────────────────────── */
+  --trolova-color-status-success: #16A34A;
+  --trolova-color-status-warning: #F59E0B;
+  --trolova-color-status-error:   #DC2626;
+
+  /* ── Typography – Font Weight ─────────────────────────────────── */
+  --trolova-font-weight-regular:  400;
+  --trolova-font-weight-medium:   500;
+  --trolova-font-weight-semibold: 600;
+  --trolova-font-weight-bold:     700;
+
+  /* ── Typography – Font Size ───────────────────────────────────── */
+  --trolova-font-size-xs: 12px;
+  --trolova-font-size-sm: 14px;
+  --trolova-font-size-md: 16px;
+  --trolova-font-size-lg: 20px;
+  --trolova-font-size-xl: 24px;
+
+  /* ── Typography – Line Height ─────────────────────────────────── */
+  --trolova-line-height-tight:   1.25;
+  --trolova-line-height-normal:  1.5;
+  --trolova-line-height-relaxed: 1.7;
+
+  /* ── Spacing ──────────────────────────────────────────────────── */
+  --trolova-space-1: 4px;
+  --trolova-space-2: 8px;
+  --trolova-space-3: 16px;
+  --trolova-space-4: 24px;
+  --trolova-space-5: 32px;
+  --trolova-space-6: 48px;
+  --trolova-space-7: 64px;
+
+  /* ── Border Radius ────────────────────────────────────────────── */
+  --trolova-radius-sm: 6px;
+  --trolova-radius-md: 10px;
+  --trolova-radius-lg: 14px;
+
+  /* ── Shadow ───────────────────────────────────────────────────── */
+  --trolova-shadow-sm: 0 1px 2px rgb(17 24 39 / 0.08);
+  --trolova-shadow-md: 0 8px 24px rgb(17 24 39 / 0.12);
+  --trolova-shadow-lg: 0 20px 48px rgb(17 24 39 / 0.16);
+}
+
+/* ── Reset ────────────────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-inline-size: 320px;
+  background: var(--trolova-color-background-page);
+  color: var(--trolova-color-text-primary);
+  font-family: var(--trolova-font-family-primary), system-ui, sans-serif;
+  font-size: var(--trolova-font-size-md);
+  line-height: var(--trolova-line-height-normal);
+}
+
+body {
+  min-block-size: 100vh;
+  margin: 0;
+  background: var(--trolova-color-background-page);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: var(--trolova-focus-ring-width) solid var(--trolova-color-focus-ring);
+  outline-offset: var(--trolova-focus-ring-offset);
+}
+
+img,
+svg {
+  display: block;
+  max-inline-size: 100%;
+}
