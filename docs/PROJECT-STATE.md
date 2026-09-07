@@ -69,6 +69,10 @@ The old FoundationPage is a legacy dev-only validation artifact and was **not mi
 
 ## Next Authorized Work
 
-No next batch is currently authorized.
+**Planning baseline:** `docs/PRODUCT-SLICE-MAP.md` is the approved Product Slice Map and frontend planning baseline.
 
-Awaiting explicit Product Owner authorization before beginning any new batch.
+**Currently selected first real Product slice:** Students List (Wave 1 — Center & People).
+
+**Students List implementation is NOT yet authorized.**
+
+Awaiting explicit Product Owner authorization before beginning any implementation batch.
