@@ -73,6 +73,9 @@ The old FoundationPage is a legacy dev-only validation artifact and was **not mi
 
 **Currently selected first real Product slice:** Students List (Wave 1 — Center & People).
 
+**Students List v1 Product + UI/UX decisions are approved.**
+Approved decisions are recorded in `docs/STUDENTS-LIST-V1-DECISIONS.md`.
+
 **Students List implementation is NOT yet authorized.**
 
 Awaiting explicit Product Owner authorization before beginning any implementation batch.
