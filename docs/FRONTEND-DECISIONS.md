@@ -75,8 +75,8 @@ These are binding. Do not reverse them without explicit Product Owner authorizat
 - Built **Just-In-Time** — only when there is an authorized use.
 - One primitive per implementation batch.
 - **Button** — first production primitive. ✅ Implemented.
-- **Input** — second production primitive. 🔒 Locked, not yet implemented.
-- **FormField** — not yet approved.
+- **Input** — second production primitive. ✅ Implemented at `src/components/Input/`. Approved scope is a native `<input>` wrapper that forwards `InputHTMLAttributes<HTMLInputElement>`. Do not expand its API without explicit authorization.
+- **FormField** — not currently an approved or pre-built reusable primitive. It may be considered Just-In-Time when a real Students Management form requires it, after review. Do not design or authorize its API now.
 
 ---
 

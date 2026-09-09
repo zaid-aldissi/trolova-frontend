@@ -41,8 +41,8 @@ Authority and operating rules for all Kiro sessions in this repository.
 
 ## What Kiro Must Not Do Without Explicit Authorization
 
-- Implement Input (locked as next primitive — not yet authorized)
-- Implement FormField (not yet approved)
+- Expand the Input primitive API (`src/components/Input/` — already implemented; limited native `<input>` wrapper)
+- Implement FormField as a pre-built reusable primitive (not currently approved; may be considered JIT only when a real Students Management form requires it, after review — do not design or authorize its API now)
 - Add styling frameworks (Tailwind, CSS-in-JS, etc.)
 - Add Storybook, form libraries, query libraries, validation libraries, UI component libraries
 - Expand the token set beyond the approved 43 `--trolova-*` tokens
