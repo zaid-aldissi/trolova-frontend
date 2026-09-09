@@ -1,6 +1,6 @@
 # Project State — Trolova Frontend
 
-Last updated: Batch 10 — UI/UX Foundation v1 recorded. Batch 7 (Input) CLOSED.
+Last updated: Students Management v1 group decisions approved and documented.
 
 ---
 
@@ -76,6 +76,10 @@ The old FoundationPage is a legacy dev-only validation artifact and was **not mi
 **Students List v1 Product + UI/UX decisions are approved.**
 Approved decisions are recorded in `docs/STUDENTS-LIST-V1-DECISIONS.md`.
 
-**Students List implementation is NOT yet authorized.**
+**Students Management v1 group decisions are approved.**
+Approved decisions are recorded in `docs/STUDENTS-MANAGEMENT-V1-DECISIONS.md`.
+This covers: Register Student, Student Profile, Maintain/Edit Student, Archive/Reactivate.
+
+**Implementation is NOT yet authorized.**
 
 Awaiting explicit Product Owner authorization before beginning any implementation batch.
