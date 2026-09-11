@@ -1,0 +1,142 @@
+.page {
+  padding: 26px 32px 32px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 18px;
+  color: var(--trolova-color-text-secondary);
+  font-size: 12px;
+}
+
+.breadcrumb [aria-current] {
+  color: var(--trolova-color-text-primary);
+  font-weight: var(--trolova-font-weight-semibold);
+}
+
+.breadcrumbSeparator {
+  color: var(--trolova-color-border-default);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-block-end: 22px;
+}
+
+.titleIcon,
+.stateIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 52px;
+  block-size: 52px;
+  border: 1px solid var(--trolova-color-border-default);
+  border-radius: var(--trolova-radius-lg);
+  background: #EEF3FE;
+  color: var(--trolova-color-brand-primary-hover);
+}
+
+.titleIcon svg {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: 27px;
+  font-weight: var(--trolova-font-weight-bold);
+  line-height: 1.5;
+}
+
+.context {
+  margin-block: 5px 0;
+  color: var(--trolova-color-text-secondary);
+  font-size: 13.5px;
+}
+
+.workspace {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-block-size: 300px;
+  padding: 48px 24px;
+  border: 1px solid var(--trolova-color-border-default);
+  border-radius: var(--trolova-radius-lg);
+  background: var(--trolova-color-background-page);
+  text-align: center;
+}
+
+.stateIcon {
+  inline-size: 52px;
+  block-size: 52px;
+  background: var(--trolova-color-surface-default);
+  color: var(--trolova-color-text-secondary);
+}
+
+.stateIcon svg {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.stateTitle {
+  margin: 14px 0 0;
+  color: var(--trolova-color-text-primary);
+  font-size: 17px;
+  font-weight: var(--trolova-font-weight-semibold);
+}
+
+.stateDescription {
+  max-inline-size: 520px;
+  margin: 8px 0 0;
+  color: var(--trolova-color-text-secondary);
+  font-size: 13.5px;
+  line-height: var(--trolova-line-height-relaxed);
+}
+
+@media (max-width: 1100px) {
+  .page {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 18px 18px 32px;
+  }
+
+  .breadcrumb {
+    margin-block-end: 14px;
+  }
+
+  .header {
+    gap: 12px;
+    margin-block-end: 18px;
+  }
+
+  .titleIcon {
+    inline-size: 44px;
+    block-size: 44px;
+  }
+
+  .titleIcon svg {
+    inline-size: 21px;
+    block-size: 21px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+
+  .context {
+    font-size: 12.5px;
+  }
+
+  .workspace {
+    min-block-size: 260px;
+    padding: 36px 18px;
+  }
+}

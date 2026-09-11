@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eceef3;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif}
+a{color:#1D4ED8;text-decoration:none}a:hover{color:#16357E}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(15,23,42,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#16357E;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#16357E}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(22,53,126,.1);color:#16357E;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(15,23,42,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:14px;box-shadow:0 8px 28px rgba(16,32,72,.08);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:24px 0 0;font:12px/1.6 system-ui,sans-serif;color:rgba(15,23,42,.5)}
+@keyframes tt{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+<symbol id="i-badge" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M5.5 21a7 7 0 0 1 13 0"></path></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="3"></rect><path d="M16 2.5v4M8 2.5v4M3 10h18"></path></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"></rect><path d="M2 10h20M6 15h3"></path></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M12 20V9M18 20V4M6 20v-6"></path></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14.5 2.5H7a2.5 2.5 0 0 0-2.5 2.5v14A2.5 2.5 0 0 0 7 21.5h10a2.5 2.5 0 0 0 2.5-2.5V7.5z"></path><path d="M14 2.5v5h5M9 13h6M9 17h4"></path></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 8 2.5 8h-17S6 15 6 9"></path><path d="M10.2 21a2 2 0 0 0 3.6 0"></path></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"></circle><path d="M19.3 14.5a1.6 1.6 0 0 0 .32 1.77l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.6 1.6 0 0 0-1.77-.32 1.6 1.6 0 0 0-.97 1.47V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1.05-1.47 1.6 1.6 0 0 0-1.77.32l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.6 1.6 0 0 0 .32-1.77 1.6 1.6 0 0 0-1.47-.97H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.47-1.05 1.6 1.6 0 0 0-.32-1.77l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.6 1.6 0 0 0 1.77.32H9a1.6 1.6 0 0 0 .97-1.47V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 .97 1.47 1.6 1.6 0 0 0 1.77-.32l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.6 1.6 0 0 0-.32 1.77V9a1.6 1.6 0 0 0 1.47.97H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.47.97z"></path></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20.5 20.5-4-4"></path></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"></circle><path d="M2.5 12h19"></path><path d="M12 2.5a14 14 0 0 1 0 19 14 14 0 0 1 0-19"></path></symbol>
+<symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"></path></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m14.5 5-7 7 7 7"></path></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></symbol>
+<symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"></circle><circle cx="12" cy="12" r="1.4"></circle><circle cx="19" cy="12" r="1.4"></circle></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M21.5 16.9v2.6a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3-8.6 2 2 0 0 1 2-2.2h2.6a2 2 0 0 1 2 1.7c.13 1 .36 1.9.7 2.8a2 2 0 0 1-.46 2.1L7.6 9.5a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.45c.9.33 1.84.57 2.8.7a2 2 0 0 1 1.8 2z"></path></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24"><path d="M7 4v16M4 7.5 7 4l3 3.5M17 20V4M14 16.5 17 20l3-3.5"></path></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4.5" rx="1.5"></rect><path d="M5 8.5V19a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19V8.5M10 13h4"></path></symbol>
+<symbol id="i-undo" viewBox="0 0 24 24"><path d="M4 9h11a5 5 0 0 1 0 10h-6"></path><path d="m8 5-4 4 4 4"></path></symbol>
+<symbol id="i-open" viewBox="0 0 24 24"><path d="M14 4h6v6"></path><path d="M20 4 11 13"></path><path d="M18 14.5V19a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 19V8a1.5 1.5 0 0 1 1.5-1.5H10"></path></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></symbol>
+<symbol id="i-empty" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20.5 20.5-4-4M8.5 11h5"></path></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"></rect></symbol>
+</defs></svg>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">TROLOVA — إدارة الطلاب · نظام واجهات قابل لإعادة الاستخدام</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>سطح المكتب · Desktop RTL — 1440×940 · شاشة الطلاب الكاملة (بحث + تصفية + جدول)</div>
+<div class="dv-card" style="border-radius:16px">
+<div dir="rtl" style="width:1440px;height:940px;display:flex;background:#F4F6FA;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#0F172A;position:relative;overflow:hidden">
+
+  <aside style="width:252px;flex:none;background:#fff;border-left:1px solid #E6EAF2;display:flex;flex-direction:column">
+    <div style="padding:26px 24px 22px;border-bottom:1px solid #EEF1F7">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:25px;letter-spacing:.11em;color:#16357E;direction:ltr;text-align:right">TROLOVA</div>
+      <div style="margin-top:6px;font-size:10.5px;color:#8A93A6;letter-spacing:.01em">نظام تشغيل مراكز تدريب القيادة</div>
+    </div>
+    <nav style="padding:16px 14px;display:flex;flex-direction:column;gap:3px">
+      <div style="position:relative;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:#EEF3FE;color:#16357E;font-size:14px;font-weight:600">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-users"></use></svg>
+        <span>الطلاب</span>
+        <span style="position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:3px;background:#1D4ED8"></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-badge"></use></svg><span>المدربون</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-cal"></use></svg><span>المواعيد</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-card"></use></svg><span>المدفوعات</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-chart"></use></svg><span>التقارير</span>
+      </div>
+      <div style="height:1px;background:#EEF1F7;margin:14px 6px"></div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-file"></use></svg><span>المستندات</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-bell"></use></svg><span>الإشعارات</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F5F7FB;color:#16357E">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-gear"></use></svg><span>الإعدادات</span>
+      </div>
+    </nav>
+    <div style="margin-top:auto;padding:20px">
+      <div style="background:#EEF3FE;border:1px solid #DEE8FC;border-radius:14px;padding:20px 16px;text-align:center">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;line-height:1;color:#16357E;font-weight:700">∞</div>
+        <div style="margin-top:10px;font-size:12.5px;font-weight:600;color:#16357E;line-height:1.7">معاً نزيد عدد<br>السائقين الآمنين</div>
+        <div style="margin-top:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;letter-spacing:.04em;color:#7C8AA8;direction:ltr;line-height:1.6">Safer Drivers<br>Stronger Communities</div>
+      </div>
+    </div>
+  </aside>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <header style="height:74px;flex:none;background:#fff;border-bottom:1px solid #E6EAF2;display:flex;align-items:center;gap:18px;padding:0 28px">
+      <div style="display:flex;align-items:center;gap:11px;padding:6px 10px 6px 6px;border-radius:12px;cursor:pointer" style-hover="background:#F5F7FB">
+        <div style="width:38px;height:38px;border-radius:50%;background:#16357E;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.02em">AA</div>
+        <div style="line-height:1.35">
+          <div style="font-size:13.5px;font-weight:600;color:#16357E">أحمد علي</div>
+          <div style="font-size:11px;color:#8A93A6">مركز تدريب القيادة</div>
+        </div>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A1B4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><use href="#i-chev-d"></use></svg>
+      </div>
+      <div style="width:1px;height:26px;background:#EEF1F7"></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;cursor:pointer;color:#5A6478" style-hover="background:#F5F7FB">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><use href="#i-globe"></use></svg>
+        <span style="font-size:13px;font-weight:600;color:#3B455C">العربية</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#98A1B4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><use href="#i-chev-d"></use></svg>
+      </div>
+      <sc-if value="{{ topSearch }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;max-width:430px;display:flex;align-items:center;gap:10px;height:42px;padding:0 14px;background:#F4F6FA;border:1px solid #EBEFF6;border-radius:11px;color:#98A1B4">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-search"></use></svg>
+        <span style="font-size:13px;color:#98A1B4">البحث في النظام…</span>
+      </div>
+      </sc-if>
+      <div style="margin-right:auto;display:flex;align-items:center;gap:8px">
+        <div style="position:relative;width:38px;height:38px;border-radius:10px;border:1px solid #E6EAF2;display:flex;align-items:center;justify-content:center;color:#5A6478;cursor:pointer" style-hover="background:#F5F7FB">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><use href="#i-bell"></use></svg>
+          <span style="position:absolute;top:8px;left:9px;width:6px;height:6px;border-radius:50%;background:#F04438;border:1.5px solid #fff"></span>
+        </div>
+      </div>
+    </header>
+
+    <div style="flex:1;min-height:0;overflow:hidden;padding:26px 32px 0">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#98A1B4;margin-bottom:18px">
+        <span style="cursor:pointer" style-hover="color:#16357E">الرئيسية</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C4CBD8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><use href="#i-chev-l"></use></svg>
+        <span style="color:#3B455C;font-weight:600">الطلاب</span>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:22px">
+        <div style="width:52px;height:52px;flex:none;border-radius:14px;background:#EEF3FE;border:1px solid #DEE8FC;display:flex;align-items:center;justify-content:center;color:#1D4ED8">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-users"></use></svg>
+        </div>
+        <div style="padding-top:2px">
+          <h1 style="margin:0;font-size:27px;font-weight:700;letter-spacing:-.01em;color:#12203F">الطلاب</h1>
+          <p style="margin:5px 0 0;font-size:13.5px;color:#79839A">إدارة ملفات الطلاب المسجّلين في مركز تدريب القيادة</p>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="position:relative;width:400px">
+          <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#98A1B4;display:flex">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-search"></use></svg>
+          </span>
+          <input type="text" value="{{ q }}" onChange="{{ onQ }}" placeholder="ابحث بالاسم الكامل أو رقم الهاتف…" style="width:100%;height:44px;box-sizing:border-box;padding:0 42px 0 14px;border:1px solid #E1E6F0;border-radius:11px;background:#fff;font-family:inherit;font-size:13.5px;color:#12203F;outline:none;box-shadow:0 1px 2px rgba(16,32,72,.04)" style-focus="border-color:#8FB0F5;box-shadow:0 0 0 3px rgba(29,78,216,.12)">
+        </div>
+
+        <div style="display:flex;gap:3px;padding:4px;background:#EDF0F6;border-radius:12px">
+          <sc-if value="{{ fAll }}" hint-placeholder-val="{{ true }}"><button style="border:0;height:36px;padding:0 18px;border-radius:9px;background:#fff;color:#16357E;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(16,32,72,.1)">الكل</button></sc-if>
+          <sc-if value="{{ nAll }}"><button onClick="{{ setAll }}" style="border:0;height:36px;padding:0 18px;border-radius:9px;background:transparent;color:#6B7488;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#16357E">الكل</button></sc-if>
+          <sc-if value="{{ fActive }}"><button style="border:0;height:36px;padding:0 18px;border-radius:9px;background:#fff;color:#16357E;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(16,32,72,.1)">نشط</button></sc-if>
+          <sc-if value="{{ nActive }}" hint-placeholder-val="{{ true }}"><button onClick="{{ setActive }}" style="border:0;height:36px;padding:0 18px;border-radius:9px;background:transparent;color:#6B7488;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#16357E">نشط</button></sc-if>
+          <sc-if value="{{ fArch }}"><button style="border:0;height:36px;padding:0 18px;border-radius:9px;background:#fff;color:#16357E;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 1px 2px rgba(16,32,72,.1)">مؤرشف</button></sc-if>
+          <sc-if value="{{ nArch }}" hint-placeholder-val="{{ true }}"><button onClick="{{ setArch }}" style="border:0;height:36px;padding:0 18px;border-radius:9px;background:transparent;color:#6B7488;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="color:#16357E">مؤرشف</button></sc-if>
+        </div>
+
+        <button onClick="{{ onRegister }}" style="margin-right:auto;display:flex;align-items:center;gap:9px;height:44px;padding:0 22px;border:0;border-radius:11px;background:#16357E;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;box-shadow:0 6px 16px rgba(22,53,126,.24)" style-hover="background:#1D4099">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round"><use href="#i-plus"></use></svg>
+          تسجيل طالب
+        </button>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E6EAF2;border-radius:14px;box-shadow:0 1px 2px rgba(16,32,72,.04);overflow:hidden">
+        <div style="display:flex;align-items:center;height:46px;padding:0 22px;background:#F7F9FC;border-bottom:1px solid #E6EAF2;font-size:12px;font-weight:600;color:#79839A">
+          <div style="flex:1;min-width:0;display:flex;align-items:center;gap:6px;cursor:pointer" style-hover="color:#16357E">الاسم الكامل<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B7BFCE" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><use href="#i-sort"></use></svg></div>
+          <div style="width:190px;flex:none">الهاتف الأساسي</div>
+          <div style="width:190px;flex:none;display:flex;align-items:center;gap:6px;cursor:pointer" style-hover="color:#16357E">تاريخ التسجيل<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#B7BFCE" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><use href="#i-sort"></use></svg></div>
+          <div style="width:130px;flex:none">الحالة</div>
+          <div style="width:70px;flex:none;text-align:left">الإجراءات</div>
+        </div>
+
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
+          <div style="display:flex;align-items:center;height:{{ rowH }};padding:0 22px;border-bottom:1px solid #F1F4F9;position:relative" style-hover="background:#FAFBFE">
+            <div style="flex:1;min-width:0;display:flex;align-items:center;gap:12px">
+              <div style="width:36px;height:36px;flex:none;border-radius:50%;background:#EEF3FE;border:1px solid #E1E9FB;color:#2B4B9B;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600">{{ r.initials }}</div>
+              <span onClick="{{ r.onOpen }}" style="font-size:14px;font-weight:600;color:#12203F;cursor:pointer" style-hover="color:#1D4ED8;text-decoration:underline;text-underline-offset:3px">{{ r.name }}</span>
+            </div>
+            <div style="width:190px;flex:none;font-size:13.5px;color:#4B5568;direction:ltr;text-align:right;font-variant-numeric:tabular-nums">{{ r.phone }}</div>
+            <div style="width:190px;flex:none;font-size:13.5px;color:#4B5568">{{ r.date }}</div>
+            <div style="width:130px;flex:none">
+              <sc-if value="{{ r.isActive }}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:8px;background:#ECFDF3;border:1px solid #ABEFC6;color:#067647;font-size:12px;font-weight:600"><span style="width:6px;height:6px;border-radius:50%;background:#17B26A"></span>نشط</span></sc-if>
+              <sc-if value="{{ r.isArchived }}"><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:8px;background:#FFFAEB;border:1px solid #FEDF89;color:#B54708;font-size:12px;font-weight:600"><span style="width:6px;height:6px;border-radius:50%;background:#F79009"></span>مؤرشف</span></sc-if>
+            </div>
+            <div style="width:70px;flex:none;display:flex;justify-content:flex-end;position:relative">
+              <button onClick="{{ r.onMenu }}" style="width:32px;height:32px;border-radius:9px;border:1px solid #E6EAF2;background:#fff;color:#6B7488;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#F4F6FA;color:#16357E">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><use href="#i-dots"></use></svg>
+              </button>
+              <sc-if value="{{ r.menuOpen }}">
+                <div style="position:absolute;top:38px;left:0;z-index:20;width:196px;background:#fff;border:1px solid #E6EAF2;border-radius:12px;box-shadow:0 12px 32px rgba(16,32,72,.14);padding:6px;animation:tt .12s ease-out">
+                  <div onClick="{{ r.onOpen }}" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:#3B455C;cursor:pointer" style-hover="background:#F4F6FA;color:#16357E">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-open"></use></svg>فتح ملف الطالب
+                  </div>
+                  <div onClick="{{ r.onToggle }}" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;color:#3B455C;cursor:pointer" style-hover="background:#F4F6FA;color:#16357E">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="{{ r.toggleIcon }}"></use></svg>{{ r.toggleLabel }}
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ empty }}">
+          <div style="padding:64px 0;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div style="width:52px;height:52px;border-radius:14px;background:#F4F6FA;border:1px solid #E6EAF2;display:flex;align-items:center;justify-content:center;color:#A9B2C3">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><use href="#i-empty"></use></svg>
+            </div>
+            <div style="font-size:15px;font-weight:600;color:#12203F">لا يوجد طلاب مطابقون</div>
+            <div style="font-size:13px;color:#79839A">جرّب تعديل نص البحث أو تغيير التصفية.</div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ toastOn }}">
+    <div style="position:absolute;bottom:26px;left:26px;display:flex;align-items:center;gap:10px;padding:12px 16px;background:#12203F;color:#fff;border-radius:12px;font-size:13px;box-shadow:0 14px 36px rgba(16,32,72,.28);animation:tt .16s ease-out;z-index:40">
+      <span style="width:7px;height:7px;border-radius:50%;background:#61D3A0"></span>{{ toast }}
+    </div>
+  </sc-if>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>الجوال · Mobile RTL — 390×844 · قائمة بطاقات، بحث لاصق، إجراء رئيسي عائم</div>
+<div class="dv-card" style="border-radius:44px;padding:10px;background:#0E1729;border-color:#0E1729">
+<div dir="rtl" style="width:390px;height:844px;border-radius:36px;overflow:hidden;background:#F4F6FA;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#0F172A;position:relative;display:flex;flex-direction:column">
+
+  <div style="height:46px;flex:none;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:12.5px;font-weight:600;color:#12203F">
+    <div style="display:flex;align-items:center;gap:5px;direction:ltr"><span style="width:16px;height:9px;border:1.4px solid #12203F;border-radius:3px;display:inline-block;position:relative"><span style="position:absolute;inset:1.5px;background:#12203F;border-radius:1px"></span></span></div>
+    <div style="direction:ltr;font-variant-numeric:tabular-nums">9:41</div>
+  </div>
+
+  <header style="flex:none;background:#fff;border-bottom:1px solid #EDF0F6;padding:6px 18px 14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:44px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;border-radius:10px;border:1px solid #E6EAF2;display:flex;align-items:center;justify-content:center;color:#3B455C">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-menu"></use></svg>
+        </div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;letter-spacing:.11em;color:#16357E;direction:ltr">TROLOVA</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="position:relative;width:36px;height:36px;border-radius:10px;border:1px solid #E6EAF2;display:flex;align-items:center;justify-content:center;color:#3B455C">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-bell"></use></svg>
+          <span style="position:absolute;top:7px;left:8px;width:6px;height:6px;border-radius:50%;background:#F04438;border:1.5px solid #fff"></span>
+        </div>
+        <div style="width:36px;height:36px;border-radius:50%;background:#16357E;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:700">AA</div>
+      </div>
+    </div>
+    <div style="margin-top:10px">
+      <h1 style="margin:0;font-size:23px;font-weight:700;letter-spacing:-.01em;color:#12203F">الطلاب</h1>
+      <p style="margin:3px 0 0;font-size:12.5px;color:#79839A">إدارة ملفات الطلاب المسجّلين</p>
+    </div>
+    <div style="position:relative;margin-top:14px">
+      <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:#98A1B4;display:flex">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-search"></use></svg>
+      </span>
+      <input type="text" value="{{ mq }}" onChange="{{ onMQ }}" placeholder="ابحث بالاسم أو رقم الهاتف…" style="width:100%;height:44px;box-sizing:border-box;padding:0 40px 0 14px;border:1px solid #E1E6F0;border-radius:12px;background:#F7F9FC;font-family:inherit;font-size:13.5px;color:#12203F;outline:none" style-focus="border-color:#8FB0F5;background:#fff;box-shadow:0 0 0 3px rgba(29,78,216,.12)">
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <sc-if value="{{ mAll }}" hint-placeholder-val="{{ true }}"><span style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#16357E;color:#fff;font-size:12.5px;font-weight:600">الكل</span></sc-if>
+      <sc-if value="{{ mnAll }}"><span onClick="{{ setMAll }}" style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #E1E6F0;color:#5A6478;font-size:12.5px;font-weight:500">الكل</span></sc-if>
+      <sc-if value="{{ mActive }}"><span style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#16357E;color:#fff;font-size:12.5px;font-weight:600">نشط</span></sc-if>
+      <sc-if value="{{ mnActive }}" hint-placeholder-val="{{ true }}"><span onClick="{{ setMActive }}" style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #E1E6F0;color:#5A6478;font-size:12.5px;font-weight:500">نشط</span></sc-if>
+      <sc-if value="{{ mArch }}"><span style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#16357E;color:#fff;font-size:12.5px;font-weight:600">مؤرشف</span></sc-if>
+      <sc-if value="{{ mnArch }}" hint-placeholder-val="{{ true }}"><span onClick="{{ setMArch }}" style="height:32px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #E1E6F0;color:#5A6478;font-size:12.5px;font-weight:500">مؤرشف</span></sc-if>
+    </div>
+  </header>
+
+  <div style="flex:1;min-height:0;overflow-y:auto;padding:14px 16px 130px;display:flex;flex-direction:column;gap:10px">
+    <sc-for list="{{ mrows }}" as="r" hint-placeholder-count="6">
+      <div style="background:#fff;border:1px solid #E6EAF2;border-radius:14px;padding:13px 14px;box-shadow:0 1px 2px rgba(16,32,72,.04)">
+        <div style="display:flex;align-items:center;gap:11px">
+          <div style="width:40px;height:40px;flex:none;border-radius:50%;background:#EEF3FE;border:1px solid #E1E9FB;color:#2B4B9B;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600">{{ r.initials }}</div>
+          <div style="flex:1;min-width:0">
+            <div onClick="{{ r.onOpen }}" style="font-size:14.5px;font-weight:600;color:#12203F;display:flex;align-items:center;gap:6px">{{ r.name }}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B7BFCE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><use href="#i-chev-l"></use></svg>
+            </div>
+            <div style="margin-top:3px;font-size:12.5px;color:#79839A;direction:ltr;text-align:right;font-variant-numeric:tabular-nums">{{ r.phone }}</div>
+          </div>
+          <sc-if value="{{ r.isActive }}" hint-placeholder-val="{{ true }}"><span style="align-self:flex-start;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:7px;background:#ECFDF3;border:1px solid #ABEFC6;color:#067647;font-size:11.5px;font-weight:600"><span style="width:5px;height:5px;border-radius:50%;background:#17B26A"></span>نشط</span></sc-if>
+          <sc-if value="{{ r.isArchived }}"><span style="align-self:flex-start;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:7px;background:#FFFAEB;border:1px solid #FEDF89;color:#B54708;font-size:11.5px;font-weight:600"><span style="width:5px;height:5px;border-radius:50%;background:#F79009"></span>مؤرشف</span></sc-if>
+        </div>
+        <div style="margin-top:11px;padding-top:10px;border-top:1px solid #F1F4F9;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#79839A">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#A9B2C3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-cal"></use></svg>
+            سُجّل في {{ r.date }}
+          </div>
+          <button onClick="{{ r.onToggle }}" style="height:30px;padding:0 12px;border-radius:8px;border:1px solid #E6EAF2;background:#fff;color:#5A6478;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="{{ r.toggleIcon }}"></use></svg>{{ r.toggleLabel }}
+          </button>
+        </div>
+      </div>
+    </sc-for>
+    <sc-if value="{{ memptyM }}">
+      <div style="padding:56px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="width:48px;height:48px;border-radius:14px;background:#fff;border:1px solid #E6EAF2;display:flex;align-items:center;justify-content:center;color:#A9B2C3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><use href="#i-empty"></use></svg>
+        </div>
+        <div style="font-size:14.5px;font-weight:600;color:#12203F">لا يوجد طلاب مطابقون</div>
+        <div style="font-size:12.5px;color:#79839A">جرّب تعديل البحث أو التصفية.</div>
+      </div>
+    </sc-if>
+  </div>
+
+  <button onClick="{{ onRegister }}" style="position:absolute;left:18px;bottom:96px;display:flex;align-items:center;gap:8px;height:50px;padding:0 20px;border:0;border-radius:15px;background:#16357E;color:#fff;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 12px 26px rgba(22,53,126,.34)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><use href="#i-plus"></use></svg>
+    تسجيل طالب
+  </button>
+
+  <nav style="flex:none;background:#fff;border-top:1px solid #E6EAF2;padding:9px 12px 22px;display:flex;justify-content:space-between">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#16357E">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><use href="#i-users"></use></svg>
+      <span style="font-size:10.5px;font-weight:600">الطلاب</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#98A1B4">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-badge"></use></svg>
+      <span style="font-size:10.5px;font-weight:500">المدربون</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#98A1B4">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-cal"></use></svg>
+      <span style="font-size:10.5px;font-weight:500">المواعيد</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#98A1B4">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-card"></use></svg>
+      <span style="font-size:10.5px;font-weight:500">المدفوعات</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:#98A1B4">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-grid"></use></svg>
+      <span style="font-size:10.5px;font-weight:500">المزيد</span>
+    </div>
+  </nav>
+
+  <sc-if value="{{ toastOn }}">
+    <div style="position:absolute;bottom:170px;right:16px;left:16px;display:flex;align-items:center;gap:9px;padding:12px 14px;background:#12203F;color:#fff;border-radius:12px;font-size:12.5px;box-shadow:0 14px 36px rgba(16,32,72,.3);animation:tt .16s ease-out;z-index:40">
+      <span style="width:7px;height:7px;border-radius:50%;background:#61D3A0"></span>{{ toast }}
+    </div>
+  </sc-if>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>أسس النظام · Foundations — الرموز والمكوّنات القابلة لإعادة الاستخدام في وحدات TROLOVA القادمة</div>
+<div class="dv-card" style="width:1000px">
+<div dir="rtl" style="padding:36px 34px;background:#fff;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#12203F">
+
+  <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:18px;border-bottom:1px solid #EDF0F6">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:19px;letter-spacing:.11em;color:#16357E;direction:ltr">TROLOVA</div>
+    <div style="font-size:13px;color:#79839A">نظام الواجهات — الإصدار 1.0 · يُطبَّق على الطلاب، المدربين، التسجيلات، الدروس، المدفوعات</div>
+  </div>
+
+  <div style="margin-top:26px;font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">الألوان</div>
+  <div style="margin-top:12px;display:grid;grid-template-columns:repeat(6,1fr);gap:12px">
+    <div><div style="height:56px;border-radius:10px;background:#16357E"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Brand 900</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#16357E</div></div>
+    <div><div style="height:56px;border-radius:10px;background:#1D4ED8"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Brand 600</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#1D4ED8</div></div>
+    <div><div style="height:56px;border-radius:10px;background:#EEF3FE;border:1px solid #DEE8FC"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Brand 50</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#EEF3FE</div></div>
+    <div><div style="height:56px;border-radius:10px;background:#F4F6FA;border:1px solid #E6EAF2"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Canvas</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#F4F6FA</div></div>
+    <div><div style="height:56px;border-radius:10px;background:#12203F"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Ink</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#12203F</div></div>
+    <div><div style="height:56px;border-radius:10px;background:#79839A"></div><div style="margin-top:7px;font-size:11.5px;font-weight:600">Muted</div><div style="font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">#79839A</div></div>
+  </div>
+
+  <div style="margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:34px">
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">سُلّم الخط</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="width:112px;flex:none;font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">27 / 700 · Page</span><span style="font-size:27px;font-weight:700;letter-spacing:-.01em">عنوان الصفحة</span></div>
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="width:112px;flex:none;font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">17 / 600 · Section</span><span style="font-size:17px;font-weight:600">عنوان قسم</span></div>
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="width:112px;flex:none;font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">14 / 600 · Cell</span><span style="font-size:14px;font-weight:600">اسم الطالب في الجدول</span></div>
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="width:112px;flex:none;font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">13.5 / 400 · Body</span><span style="font-size:13.5px;color:#4B5568">نص أساسي وبيانات الجدول</span></div>
+        <div style="display:flex;align-items:baseline;gap:14px"><span style="width:112px;flex:none;font-size:10.5px;color:#98A1B4;direction:ltr;text-align:right">12 / 600 · Label</span><span style="font-size:12px;font-weight:600;color:#79839A">عناوين الأعمدة والتسميات</span></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">الأزرار والحقول</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+        <button style="display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border:0;border-radius:11px;background:#16357E;color:#fff;font-family:inherit;font-size:13.5px;font-weight:600;box-shadow:0 6px 16px rgba(22,53,126,.24)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round"><use href="#i-plus"></use></svg>إجراء رئيسي</button>
+        <button style="height:44px;padding:0 20px;border:1px solid #E1E6F0;border-radius:11px;background:#fff;color:#3B455C;font-family:inherit;font-size:13.5px;font-weight:600">ثانوي</button>
+        <button style="width:40px;height:40px;border-radius:10px;border:1px solid #E6EAF2;background:#fff;color:#6B7488;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><use href="#i-dots"></use></svg></button>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px">
+        <div style="position:relative;flex:1">
+          <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:#98A1B4;display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-search"></use></svg></span>
+          <div style="height:44px;box-sizing:border-box;padding:0 40px 0 14px;border:1px solid #E1E6F0;border-radius:11px;background:#fff;display:flex;align-items:center;font-size:13.5px;color:#98A1B4">حقل بحث</div>
+        </div>
+        <div style="height:44px;box-sizing:border-box;padding:0 14px;border:1px solid #8FB0F5;border-radius:11px;background:#fff;display:flex;align-items:center;font-size:13.5px;color:#12203F;box-shadow:0 0 0 3px rgba(29,78,216,.12)">حالة التركيز</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:30px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:34px">
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">شارات الحالة</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px">
+        <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:8px;background:#ECFDF3;border:1px solid #ABEFC6;color:#067647;font-size:12px;font-weight:600"><span style="width:6px;height:6px;border-radius:50%;background:#17B26A"></span>نشط</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:8px;background:#FFFAEB;border:1px solid #FEDF89;color:#B54708;font-size:12px;font-weight:600"><span style="width:6px;height:6px;border-radius:50%;background:#F79009"></span>مؤرشف</span>
+      </div>
+      <div style="margin-top:10px;font-size:11.5px;color:#98A1B4;line-height:1.7">قالب الشارة ثابت (ارتفاع 26 · نصف قطر 8 · نقطة 6) — الوحدات القادمة تعيد استخدامه بألوان الدلالة نفسها فقط.</div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">عنصر التنقّل</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:4px;width:190px">
+        <div style="position:relative;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:#EEF3FE;color:#16357E;font-size:14px;font-weight:600"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-users"></use></svg>نشط<span style="position:absolute;left:-6px;top:8px;bottom:8px;width:3px;border-radius:3px;background:#1D4ED8"></span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;background:#F5F7FB;color:#16357E;font-size:14px;font-weight:500"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-cal"></use></svg>تمرير</div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#5A6478;font-size:14px;font-weight:500"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><use href="#i-card"></use></svg>عادي</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;color:#98A1B4;letter-spacing:.04em">قواعد التخطيط</div>
+      <div style="margin-top:12px;font-size:12px;color:#4B5568;line-height:2">
+        الشريط الجانبي 252 · الشريط العلوي 74<br>
+        حشوة المحتوى 26 × 32 · شبكة 4px<br>
+        صف الجدول 60 · رأس الجدول 46<br>
+        نصف القطر: حقل 11 · بطاقة 14 · شارة 8<br>
+        الحدود #E6EAF2 · الفواصل #F1F4F9
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:30px;padding:18px 20px;background:#F7F9FC;border:1px solid #E6EAF2;border-radius:14px;font-size:12.5px;color:#4B5568;line-height:1.9">
+    <b style="color:#12203F">قالب صفحة الوحدة</b> — كل وحدة قادمة (المدربون، التسجيلات، الدروس، المدفوعات) تستخدم البنية نفسها: مسار التنقّل ← رأس الصفحة (أيقونة + عنوان + وصف) ← شريط الأدوات (بحث يمين · تصفية مقسّمة · إجراء رئيسي يسار) ← بطاقة جدول واحدة (رأس ثابت + صفوف + حالة فارغة). لا تُضاف بطاقات مؤشرات أو ترقيم صفحات في الإصدار الأول.
+  </div>
+
+  <div style="margin-top:20px;font-size:12px;color:#98A1B4;line-height:1.9">
+    <b style="color:#79839A">افتراضات هذا الإصدار:</b> الحالات محصورة في «نشط / مؤرشف»؛ البحث يغطي الاسم الكامل والهاتف الأساسي فقط؛ قائمة الإجراءات تحتوي على «فتح ملف الطالب» و«الأرشفة / إلغاء الأرشفة» لأنهما ناتجان مباشرة عن النطاق المحدد — أخبرني إن أردت حصرها في فتح الملف فقط.
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">جرّب: «اجعل كثافة الجدول أصغر في <a class="dv-oid" href="#1a">1a</a>» · «أضف شاشة ملف الطالب» · «أرني نموذج تسجيل طالب بنفس اللغة البصرية»</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultFilter&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;active&quot;,&quot;archived&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;'all'|'active'|'archived'&quot;,&quot;section&quot;:&quot;سلوك&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable'|'compact'&quot;,&quot;section&quot;:&quot;سلوك&quot;},&quot;showTopbarSearch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;سلوك&quot;}}">
+const DATA = [
+  {id:1,name:'سارة أحمد',initials:'سأ',phone:'0790000001',date:'8 سبتمبر 2026',status:'active'},
+  {id:2,name:'عمر خالد',initials:'عخ',phone:'0790000002',date:'7 سبتمبر 2026',status:'active'},
+  {id:3,name:'ليلى حسن',initials:'لح',phone:'0790000003',date:'6 سبتمبر 2026',status:'archived'},
+  {id:4,name:'نور علي',initials:'نع',phone:'0790000004',date:'5 سبتمبر 2026',status:'active'},
+  {id:5,name:'يزن محمود',initials:'يم',phone:'0790000005',date:'4 سبتمبر 2026',status:'active'},
+  {id:6,name:'رنا إبراهيم',initials:'رإ',phone:'0790000006',date:'3 سبتمبر 2026',status:'archived'},
+  {id:7,name:'محمد خالد',initials:'مخ',phone:'0790000007',date:'2 سبتمبر 2026',status:'active'},
+  {id:8,name:'دانا سليمان',initials:'دس',phone:'0790000008',date:'1 سبتمبر 2026',status:'active'},
+  {id:9,name:'هبة قاسم',initials:'هق',phone:'0791234567',date:'31 أغسطس 2026',status:'active'},
+  {id:10,name:'أحمد الزعبي',initials:'أز',phone:'0798765432',date:'30 أغسطس 2026',status:'archived'}
+];
+
+class Component extends DCLogic {
+  state = {
+    filter: this.props.defaultFilter || 'all',
+    q: '',
+    mfilter: this.props.defaultFilter || 'all',
+    mq: '',
+    menu: null,
+    statuses: DATA.reduce((a, r) => (a[r.id] = r.status, a), {}),
+    toast: ''
+  };
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  say(msg) {
+    this.setState({ toast: msg, menu: null });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+
+  list(filter, q) {
+    const term = (q || '').trim();
+    return DATA.filter(r => {
+      const st = this.state.statuses[r.id];
+      if (filter !== 'all' && st !== filter) return false;
+      if (!term) return true;
+      return r.name.indexOf(term) !== -1 || r.phone.indexOf(term) !== -1;
+    });
+  }
+
+  decorate(list, withMenu) {
+    return list.map(r => {
+      const st = this.state.statuses[r.id];
+      const archived = st === 'archived';
+      return {
+        ...r,
+        isActive: !archived,
+        isArchived: archived,
+        menuOpen: withMenu && this.state.menu === r.id,
+        toggleLabel: archived ? 'إلغاء الأرشفة' : 'أرشفة',
+        toggleIcon: archived ? '#i-undo' : '#i-archive',
+        onMenu: () => this.setState(s => ({ menu: s.menu === r.id ? null : r.id })),
+        onOpen: () => this.say('فتح ملف الطالب: ' + r.name),
+        onToggle: () => {
+          const next = archived ? 'active' : 'archived';
+          this.setState(s => ({ statuses: { ...s.statuses, [r.id]: next } }));
+          this.say(archived ? 'تمت إعادة تفعيل ' + r.name : 'تمت أرشفة ' + r.name);
+        }
+      };
+    });
+  }
+
+  renderVals() {
+    const f = this.state.filter, mf = this.state.mfilter;
+    const rows = this.decorate(this.list(f, this.state.q), true);
+    const mrows = this.decorate(this.list(mf, this.state.mq), false);
+    return {
+      rows, mrows,
+      empty: rows.length === 0,
+      memptyM: mrows.length === 0,
+      q: this.state.q, mq: this.state.mq,
+      rowH: this.props.density === 'compact' ? '50px' : '60px',
+      topSearch: this.props.showTopbarSearch !== false,
+      onQ: e => this.setState({ q: e.target.value }),
+      onMQ: e => this.setState({ mq: e.target.value }),
+      fAll: f === 'all', nAll: f !== 'all',
+      fActive: f === 'active', nActive: f !== 'active',
+      fArch: f === 'archived', nArch: f !== 'archived',
+      mAll: mf === 'all', mnAll: mf !== 'all',
+      mActive: mf === 'active', mnActive: mf !== 'active',
+      mArch: mf === 'archived', mnArch: mf !== 'archived',
+      setAll: () => this.setState({ filter: 'all', menu: null }),
+      setActive: () => this.setState({ filter: 'active', menu: null }),
+      setArch: () => this.setState({ filter: 'archived', menu: null }),
+      setMAll: () => this.setState({ mfilter: 'all' }),
+      setMActive: () => this.setState({ mfilter: 'active' }),
+      setMArch: () => this.setState({ mfilter: 'archived' }),
+      onRegister: () => this.say('فتح نموذج تسجيل طالب جديد'),
+      toast: this.state.toast,
+      toastOn: !!this.state.toast
+    };
+  }
+}
+
+</script>
+</body>
+</html>
